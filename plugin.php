@@ -1,4 +1,5 @@
 // WooCommerce API Manager Licensing Setup
+define( 'RUP_LICENSE_MAIN_FILE', __FILE__ );
 define( 'RUP_LICENSE_PRODUCT_ID', 64 ); // Required: Your WooCommerce Product ID
 define( 'RUP_LICENSE_API_URL', 'https://yourstore.com' ); // Required: Root URL of your store (no trailing slash)
 
