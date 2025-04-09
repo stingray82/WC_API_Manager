@@ -116,3 +116,12 @@ add_action( 'init', function () use ( $prefix ) {
 		// add_action( 'admin_notices', 'your_custom_activation_notice' );
 	}
 });
+
+if ( ! class_exists( 'WC_AM_License_Helper' ) ) {
+	class WC_AM_License_Helper {
+		public static function is_active() {
+			global $wcam_lib;
+			return is_object( $wcam_lib ) && $wcam_lib->get_api_key_status();
+		}
+	}
+}

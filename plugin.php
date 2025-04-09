@@ -39,5 +39,27 @@ define( 'RUP_LICENSE_API_URL', 'https://yourstore.com' ); // Required: Root URL 
 // define( 'RUP_LICENSE_MENU_SLUG', 'awesome-plugin-license' );
 // define( 'RUP_LICENSE_MENU_PARENT', 'awesome-plugin' ); // <- Slug of your top-level menu
 
-// oad the license logic drop-in
+// load the license logic drop-in
 require_once plugin_dir_path( __FILE__ ) . 'inc/updater/wc-api-license.php';
+
+// Optional wrapper for plugin-specific check (e.g. 'rup_plugin_license_active')
+if ( ! function_exists( 'rup_plugin_license_active' ) ) {
+	/**
+	 * Wrapper for checking if the plugin license is active.
+	 *
+	 * @return bool True if license is active, false otherwise.
+	 */
+	function rup_plugin_license_active() {
+		return class_exists( 'WC_AM_License_Helper' )
+			? WC_AM_License_Helper::is_active()
+			: false;
+	}
+}
+// Example usage?
+if ( rup_plugin_license_active() ) {
+	// ✅ Show premium settings tab
+	add_action( 'admin_menu', 'myplugin_add_pro_features' );
+} else {
+	// 🔒 Show upsell notice
+	add_action( 'admin_notices', 'myplugin_license_required_notice' );
+}
